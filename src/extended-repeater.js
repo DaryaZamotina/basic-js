@@ -17,50 +17,42 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function repeater(str, options) {
 	if (!options) {
-		return str;
-	}
-	let [
-		repeatTimes, 
-		separator, 
-		addition, 
-		additionRepeatTimes, 
-		additionSeparator,
-		] = Object.keys(options);
+		options={};
+	  }
+	  if ( options['separator'] === undefined ){
+		options['separator'] = '+';
+	  }
+	  if (options['additionSeparator'] === undefined) {
+		options['additionSeparator'] = '|';
+	  }
+	  if (options['addition'] === undefined) {
+		options['addition'] = '';
+	  }
+	  if (options['additionRepeatTimes'] === undefined) {
+		options['additionRepeatTimes'] = 1;
+	  }
+	  if (options['repeatTimes'] === undefined) {
+		options['repeatTimes'] = 1;
+	  }
 	
-	if (typeof str != "String") {
-		str = String(str);
-	  }
-	  
-	  if (!options[repeatTimes]) {
-		options[repeatTimes] = 1;
-	  }
-	  if (typeof options[separator] === "undefined") {
-		options[separator] = '+';
-	  }
-	  if (typeof options[additionRepeatTimes] === "undefined") {
-		options[additionRepeatTimes] = 1;
-	  }
-	  if (typeof options[additionSeparator] === "undefined") {
-		options[additionSeparator] = '|';
-	  }
-	  
-	  if (typeof options[addition] !== "string" || typeof options[additionSeparator] !== "string" || typeof options[separator] !== "string") {
-      options[addition] = String(options[addition]);
-      options[additionSeparator] = String(options[additionSeparator]);
-      options[separator] = String(options[separator]);
-	  }
-	  
-	let strAdd = (options[addition] + options[additionSeparator]).repeat(options[additionRepeatTimes]);
-	let strAddStrict = strAdd.substring(0, strAdd.length-options[additionSeparator].length);
-	let str1 = str + strAddStrict + options[separator];
+	  if (typeof str !== 'string' || 
+		typeof options['addition'] !== 'string' ||
+		typeof options['separator'] !== 'string' ||
+		typeof options['additionSeparator'] !== 'string') {
+		  str = String(str);
+		  options['addition'] = String(options['addition']);
+		  options['separator'] = String(options['separator']);
+		  options['additionSeparator'] = String(options['additionSeparator']);
+		} 
 	
-	if (typeof options[addition] == "undefined") {
-		str1 = str + options[separator];
-	  }
- 	
-	let str2 = str1.repeat(options[repeatTimes]);
-	let res = str2.substring(0, str2.length-options[separator].length);
- 	return res;
+		let str1 = (options['addition'] + options['additionSeparator']).repeat(options['additionRepeatTimes']);
+	
+		let str2 = str1.slice(0, str1.length-options['additionSeparator'].length);
+	
+		let str3 = ((str+str2 + options['separator']).repeat(options['repeatTimes']));
+		let newStr = str3.slice(0, str3.length-options['separator'].length);
+		return newStr;
+	  
   }
 
 module.exports = {

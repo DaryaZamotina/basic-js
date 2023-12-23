@@ -14,6 +14,10 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
+if (!Array.isArray(arr) || typeof arr == undefined || typeof arr == null) {
+  return "'arr' parameter must be an instance of the Array!";
+}
+else {
   for (let i = 0; i < arr.length; i++) {
 		if (arr[i] == '--double-next') {
 			arr[i] = arr[i+1];
@@ -31,7 +35,7 @@ function transform(arr) {
       arr.splice(arr[i], 1);
     }
 	}
-	return arr;
+	return arr; }
 }
 
 module.exports = {
