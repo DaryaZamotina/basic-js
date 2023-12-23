@@ -20,10 +20,10 @@ function createDreamTeam(members) {
   let res = [];
 	for (let elem of members) {
 	  if (typeof elem == 'string') {
-		res.push(elem.substring(0, 1).toUpperCase());
+		res.push(elem.trim().substring(0, 1).toUpperCase());
 	  }
 	}
-	let result = res.sort().join('').trim();
+	let result = res.sort().join('');
 	return result;
 }
 
