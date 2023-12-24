@@ -10,13 +10,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  * For aabbbc should return 2a3bc
  *
  */
-function encodeLine(/* str */) {
-  /*let arr = str.split('');
+function encodeLine(str) {
+  if (str != String) {
+    str = String(str);
+  }
+  let arr = str.split('');
   let obj = {};
   
   let res = [];
   for (let elem of arr) {
-    while (elem == elem){
+    if (elem == elem){
     obj[elem] = obj[elem] ? obj[elem] + 1 : 1;
     break;
     } 
@@ -34,7 +37,6 @@ function encodeLine(/* str */) {
   }
   let finalRes = res.join('');
   return finalRes;
-  */
 }
 
 module.exports = {
